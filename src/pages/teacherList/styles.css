@@ -3,6 +3,11 @@
     height: 100vh;
 }
 
+#page-teacher-list main {
+    margin: 3.2rem auto;
+    width: 90%;
+}
+
 #search-teachers {
     margin-top: 3.2rem;
 }
@@ -47,12 +52,14 @@
     bottom: 0;
 }
 
+
+
 @media (min-width: 700px) {
     #page-teacher-list {
         max-width: 100%;
     }
 
-    #search-teacers {
+    #search-teachers {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
         column-gap: 16px;
@@ -63,6 +70,12 @@
     #search-teachers .input-block + .input-block{
         position: relative;
         margin-top: 0;
+    }
+    
+    #page-teacher-list main {
+        padding: 3.2rem 0;
+        max-width: 740px;
+        margin: 0 auto;
     }
     
 }
