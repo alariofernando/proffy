@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, FormEvent} from 'react';
 import PageHeader from '../../components/page-header';
 import InputBlock from '../../components/inputs';
 import TextAreaBlock from '../../components/textarea';
@@ -33,11 +33,38 @@ function TeacherForm() {
         ]);
     }
 
+    function setScheduleItemValue(postion: number, field: string, value:string) {
+        const updatedScheduleItems = scheduleItems.map((scheduleItem, index) => {
+            if (index === postion) {
+                return { ...scheduleItem, [field]: value }
+            }
+
+            return scheduleItem;
+        });
+        setScheduleItems(updatedScheduleItems);
+    }
+
+
+    function handleCreateClass(e: FormEvent) {
+        e.preventDefault();
+        console.log(
+            {
+                name,
+                avatar,
+                whatsapp,
+                bio,
+                subject,
+                cost
+            }
+        );
+    }
+
     return (
     <div id="page-teacher-form" className="container">
         <PageHeader title='Que incrivel que você quer dar aulas.'
         description='O primeiro passo é preencher este formulário de inscrição' />
         <main>
+            <form onSubmit={handleCreateClass}>
             <fieldset>
                 <legend>Seus dados</legend>
                 <InputBlock 
@@ -101,11 +128,13 @@ function TeacherForm() {
                     </button>
                 </legend>
 
-                {scheduleItems.map(scheduleItem => {
+                {scheduleItems.map((scheduleItem, index) => {
                     return (
                         <div key={scheduleItem.week_day} className="schedule-item">
                             <SelectBlock label="Dia da semana"
                             name="week_day"
+                            onChange={e => {setScheduleItemValue(index, 'week_day', e.target.value)}}
+                            value={scheduleItem.week_day}
                             options={[
                                 {label:"Domingo", value: '0'},
                                 {label:"Segunda-feira", value: '1'},
@@ -116,24 +145,36 @@ function TeacherForm() {
                                 {label:"Sábado", value: '6'},
                                 
                             ]}/>
-                            <InputBlock name="from" label="Das" type="time" />
-                            <InputBlock name="to" label="Até" type="time" />
+                            <InputBlock 
+                            name="from" 
+                            label="Das" 
+                            type="time"
+                            value={scheduleItem.from}
+                            onChange={e => {setScheduleItemValue(index, 'from', e.target.value)}}
+                            />
+                            <InputBlock 
+                            name="to" 
+                            label="Até" 
+                            type="time"
+                            value={scheduleItem.to}
+                            onChange={e => {setScheduleItemValue(index, 'to', e.target.value)}} 
+                            />
                         </div>
                     );                    
                 })}
             </fieldset>
-
+            
             <footer>
                 <p>
                     <img src={warningIcon} alt="Aviso importante"/>
                     Importante! <br />
                     Preencha todos os dados
                 </p>
-                <button>
+                <button type="submit">
                     Salvar cadastro
                 </button>
             </footer>
-
+            </form>
         </main>
     </div>
     );
