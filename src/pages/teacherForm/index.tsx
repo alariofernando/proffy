@@ -10,6 +10,14 @@ import warningIcon from '../../assets/images/icons/warning.svg';
 
 
 function TeacherForm() {
+    const [name, setName] = useState('');
+    const [avatar, setAvatar] = useState('');
+    const [whatsapp, setWhatsapp] = useState('');
+    const [bio, setBio] = useState('');
+    const [subject, setSubject] = useState('');
+    const [cost, setCost] = useState('');
+
+
     const [scheduleItems, setScheduleItems] = useState([
         {week_day:0, to:'', from:''}
     ])
@@ -32,15 +40,40 @@ function TeacherForm() {
         <main>
             <fieldset>
                 <legend>Seus dados</legend>
-                <InputBlock label="Nome Completo" name="name"/>
-                <InputBlock label="URL do seu avatar" name="avatar"/>
-                <InputBlock label="Seu número de whatsapp" name="whatsapp"/>
-                <TextAreaBlock label="Sua biografia" name="bio" />
+                <InputBlock 
+                label="Nome Completo" 
+                name="name" 
+                value={name} 
+                onChange={(e) => {setName(e.target.value);}}
+                />
+
+                <InputBlock 
+                label="URL do seu avatar" 
+                name="avatar" 
+                value={avatar} 
+                onChange={(e) => {setAvatar(e.target.value);}}
+                />
+
+                <InputBlock 
+                label="Seu número de whatsapp" 
+                name="whatsapp" 
+                value={whatsapp} 
+                onChange={(e) => {setWhatsapp(e.target.value);}}
+                />
+
+                <TextAreaBlock 
+                label="Sua biografia" 
+                name="bio" 
+                value={bio} 
+                onChange={(e) => {setBio(e.target.value);}}
+                />
             </fieldset>
             <fieldset>
                 <legend>Sobre a aula</legend>
                 <SelectBlock label="Matéria"
                  name="subject"
+                 value={subject}
+                 onChange= {(e) => {setSubject(e.target.value);}}
                  options= {[
                      {label: "Artes", value: "artes"},
                      {label: "Matemática", value: "matematica"},
@@ -49,9 +82,15 @@ function TeacherForm() {
                      {label: "Geografia", value: "geografia"},
                      {label: "História", value: "historia"},
                      {label: "Filosofia", value: "filosofia"},
+                    ]}
+                />
 
-                 ]}/>
-                <InputBlock label="Custa da aula por hora" name="cost"/>
+                <InputBlock 
+                label="Custa da aula por hora" 
+                name="cost"
+                value={cost}
+                onChange={(e) => {setCost(e.target.value);}}
+                />
             </fieldset>
 
             <fieldset>
